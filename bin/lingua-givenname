@@ -1,0 +1,3 @@
+#!/usr/bin/env perl
+use Lingua::GivenName::App;
+Lingua::GivenName::App->new_with_command->run;

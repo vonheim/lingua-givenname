@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+use strict;
+use Lingua::GivenName;
+use Encode;
+binmode(STDOUT, ':utf8');
+
+my $names = Lingua::GivenName->new;
+
+
+while( my $line = <> ) {
+    $line = decode('utf8', $line);
+    foreach my $entry ($names->names_in($line)) {
+        my $name = $entry->name;
+        my $string = $entry->as_string;
+        $line =~ s/\b($name)\b/$1\[$string\]/gi;
+    }
+
+    print $line;
+}
+

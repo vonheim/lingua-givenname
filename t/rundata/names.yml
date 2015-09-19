@@ -1,0 +1,18 @@
+---
+alex:
+  genders:
+    - male
+    - female
+  regions:
+    - norway
+    - sweden
+eva:
+  genders:
+    - female
+  regions:
+    - norway
+øystein:
+  genders:
+    - male
+  regions:
+    - norway
