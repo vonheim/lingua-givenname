@@ -3,6 +3,7 @@ package Lingua::GivenName;
 use Moose;
 use Lingua::GivenName::Storage;
 use FindBin;
+use File::ShareDir qw(module_dir);
 
 
 has 'list' => (is=>'rw', isa=>'Lingua::GivenName::List', builder=>'_build_list', lazy=>1);
@@ -11,14 +12,19 @@ has 'list' => (is=>'rw', isa=>'Lingua::GivenName::List', builder=>'_build_list',
 sub _build_list {
     my ($self) = @_;
     my $storage = Lingua::GivenName::Storage->new;
-    return $storage->load($self->_resolve_path);
+    my $path = $self->_resolve_path;
+    return $storage->load($path);
 }
 
 
 sub _resolve_path {
     my ($self) = @_;
-    my $file = 'data/names.json';
-    return "$FindBin::Bin/../$file";
+
+    my $file = 'names.json';
+    my $path = "$FindBin::Bin/../data/$file";
+    return $path if -e $path;
+
+    return module_dir('Lingua::GivenName') . "/$file";
 }
 
 
